@@ -301,6 +301,8 @@ class Computation(Scene):
         equals = Tex("=")
         togeth = Group(S, AA, times, S2, BB, equals, S3, CC).arrange()
         parts = togeth.split()
+        rectt = Rectangle(width = 2.7, height = 0.6, color = LIGHT).shift(3.9*LEFT + 2*UP)
+        rectt2 = Rectangle(width = 2.7, height = 0.6, color = LIGHT).shift(3.9*LEFT + 1.2*UP)
         rect = Rectangle(width = 2.5, height = 0.6, color = LIGHT).shift(3.8*LEFT + 2*UP)
         rect2 = Rectangle(width = 2.5, height = 0.6, color = LIGHT).shift(3.8*LEFT + 1.2*UP)
         rect3 = Rectangle(width = 2.5, height = 0.6, color  = LIGHT).shift(3.8*LEFT + 1.2*DOWN)
@@ -310,7 +312,7 @@ class Computation(Scene):
         rect7 = Rectangle(width = 2.5, height = 0.6, color  = LIGHT).shift(2*UP)
         rect8 = Rectangle(width = 2.5, height = 0.6, color  = LIGHT).shift(4*RIGHT + 1.2*DOWN)
         equals_clone = equals.copy().move_to(times.get_center())
-        summ = MathTex(r'{{1*a_{11}}}{{+x*a_{12}}}{{+\operatorname{int}*a_{13} \\ +\operatorname{int}_2*a_{14}+\operatorname{int}_3*a_{15}\\ +\operatorname{out}*a_{16}}}').shift(RIGHT)
+        summ = MathTex(r'{{1*a_{11}}}{{+x*a_{12}}}{{\\+\operatorname{int}*a_{13} +\operatorname{int}_2*a_{14}\\+\operatorname{int}_3*a_{15} +\operatorname{out}*a_{16}}}').shift(RIGHT)
         AAA = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(AA.get_center())
         BBB = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(BB.get_center())
         CCC = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(CC.get_center())
@@ -338,7 +340,7 @@ class Computation(Scene):
         self.allowed_ops(ops, LIGHT, steps)
         self.introduce_R1CS(vector_compact_1_square, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4, vector_compact_i, vector_dots, vector_compact_n, A, B, C, vectors)
         self.vector_size(items, LIGHT, vectors, vectorss, steps, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4)
-        self.write_dot_prod(items, parts, rect, rect2, equals_clone, summ, vectorss)
+        self.write_dot_prod(items, parts, rectt, rectt2, equals_clone, summ, vectorss, LIGHT)
         self.instantiating_values(AA, BB, CC, AAA, BBB, CCC, AAA2, BBB2, CCC2, AAA3, BBB3, CCC3, AAA4, BBB4, CCC4, steps)
         self.fake_sol(fakeS, fakeS2, fakeS3, S, S2, S3, rect, rect3, rect4, rect5, fake_sum)
         self.fake_sol_2(steps, AAA3, AAA4, BBB3, BBB4, CCC3, CCC4, rect2, rect6, rect7, rect8, fake_sum2, not_equals)
@@ -411,8 +413,6 @@ class Computation(Scene):
         self.wait
         
         vector_compact_1_clone = vector_compact_1.copy()
-        # self.play(vector_compact_1_clone.animate.shift(5.2*LEFT + 1.2*DOWN))
-        # self.wait
         self.play(FadeTransform(vector_compact_1_clone, vector_compact_1_square))
         self.wait()
         self.play(*[FadeTransform(vector_compact_1_square[0][s], vectors[s]) for s in range(3)], FadeOut(vector_compact_1_square[1], vector_compact_1_square[2]))
@@ -440,24 +440,29 @@ class Computation(Scene):
         self.play(FadeOut(steps[2], steps[4], steps[6], vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4), steps[0].animate.shift(2.3*UP))
         self.wait
 
-    def write_dot_prod(self, items, parts, rect, rect2, equals_clone, summ, vectorss):
+    def write_dot_prod(self, items, parts, rectt, rectt2, equals_clone, summ, vectorss, LIGHT):
         self.play(FadeIn(parts[0]), FadeOut(items), FadeTransform(vectorss[0], parts[1]), FadeOut(vectorss[1], vectorss[2]))
         self.wait()
+
+        # rectangles used to highlight how we do the dot product in the first vector pair
+        other_rects = [2,3,4,5]
+        for s in range(4):
+            other_rects[s] = Rectangle(width = 2.7, height = 0.6, color = LIGHT).shift(3.9*LEFT + 0.4*UP + s*0.8*DOWN)
 
         # aligning vectors
         self.play(Write(equals_clone))
         self.wait()
-        self.play(Write(rect))
+        self.play(Write(rectt))
         self.wait()
         self.play(FadeIn(summ[0]))
         self.wait()
-        self.play(Write(rect2))
+        self.play(Write(rectt2))
         self.wait()
         self.play(FadeIn(summ[2]))
         self.wait()
-        self.play(FadeIn(summ[4]))
+        self.play(FadeIn(summ[4]), *[FadeIn(other_rects[s]) for s in range(4)])
         self.wait()
-        self.play(FadeOut(summ, equals_clone, rect, rect2))
+        self.play(FadeOut(summ, equals_clone, rectt, rectt2), *[FadeOut(other_rects[s]) for s in range(4)])
         self.wait()
         self.play(FadeIn(parts[2], parts[3], parts[4]))
         self.wait()
@@ -558,22 +563,43 @@ class Lagrange(Scene):
         colour_special = "#931CFF"
         colour_special_darker = "#9C7900"
         colours_1 = ["#FFCC17", "#FF5555", "#E561E5", "#FF7D54"]
-        colours_2 = ["#642AB5", "#285BFE", "#00C0F9", "#0BACA2"]
+        colours_2 = ["#A479E0", "#4DECAA", "#FFD954", "#22F1E4"]
         colour_lagr = "#0F915B"
 
         lagrange_axes = Axes(x_range=[0,8],y_range=[0,6], y_length=5, tips=False, axis_config={"include_numbers": True}).shift(0.8*UP)
         vec = [[1, 3, 5, 1]]
-        vecc = Matrix(vec).set_color(BLUE).shift(3.5*DOWN + 2.3*LEFT)
-        points = [Dot(lagrange_axes.coords_to_point(s+1,vec[0][s]), color=BLUE) for s in range(4)]
+        vecc = Matrix(vec).shift(3.5*DOWN + 2.3*LEFT)
+        points = [Dot(lagrange_axes.coords_to_point(s+1,vec[0][s])) for s in range(4)]
         lagrange_bases1 = lambda x: langrage_basis(x, 0)
         lagrange_bases2 = lambda x: langrage_basis(x, 1)
         lagrange_bases3 = lambda x: langrage_basis(x, 2)
         lagrange_bases4 = lambda x: langrage_basis(x, 3)
         lagrangey = [lagrange_bases1, lagrange_bases2, lagrange_bases3, lagrange_bases4]
         plots = [*[lagrange_axes.plot(lagrangey[i], color = colours_2[i]) for i in range(4)]]
+        lagr_equations = [0,1,2,3]
+        lagr_succinct = [0,1,2,3]
+        lagr_equations[0] = MathTex("-\\frac{1}{6}x^3+\\frac{3}{2}x^2-\\frac{13}{3}x+4").set_color(colours_2[0])
+        lagr_equations[1] = MathTex("\\frac{1}{2}x^3 - 4x^2 + \\frac{19}{2}x - 6").set_color(colours_2[1])
+        lagr_equations[2] = MathTex("-\\frac{1}{2}x^3 + \\frac{7}{2}x^2 - 7x + 4").set_color(colours_2[2])
+        lagr_equations[3] = MathTex("-\\frac{1}{6}x^3+\\frac{3}{2}x^2-\\frac{13}{3}x+4").set_color(colours_2[3])
+        lagr_succinct[0] = MathTex("L_1(x)").set_color(colours_2[0]).move_to(4*RIGHT)
+        lagr_succinct[1] = MathTex("L_2(x)").set_color(colours_2[1]).move_to(4*RIGHT)
+        lagr_succinct[2] = MathTex("L_3(x)").set_color(colours_2[2]).move_to(4*RIGHT)
+        lagr_succinct[3] = MathTex("L_4(x)").set_color(colours_2[3]).move_to(4*RIGHT)
+        lagr_equations_with_succinct = [0,1,2,3]
+        for s in range(4):
+            lagr_equations_with_succinct[s] = Group(lagr_equations[s], lagr_succinct[s]).arrange(DOWN).shift(4*RIGHT)
+        multiply_to_fit = [0,1]
+        multiply_to_fit[0] = MathTex("3*(\\frac{1}{2}x^3 - 4x^2 + \\frac{19}{2}x - 6)").set_color(colours_2[1])
+        multiply_to_fit[1] = MathTex("5*(-\\frac{1}{2}x^3 + \\frac{7}{2}x^2 - 7x + 4)").set_color(colours_2[2])
+        multiply_to_fit_succinct = [0,1]
+        multiply_to_fit_succinct[0] = Group(multiply_to_fit[0], MathTex("3*L_2(x)").set_color(colours_2[1])).arrange(DOWN).shift(4*RIGHT)
+        multiply_to_fit_succinct[1] = Group(multiply_to_fit[1], MathTex("5*L_3(x)").set_color(colours_2[2])).arrange(DOWN).shift(4*RIGHT)
+        sum_of_lagr_for_interp_example = Group(lagr_succinct[0].copy(), MathTex("+3*L_2(x)").set_color(colours_2[1]), MathTex("+5*L_3(x)").set_color(colours_2[2]), MathTex("+L_4(x)").set_color(colours_2[3])).arrange(DOWN).shift(4*RIGHT)
+
         interpoly = lambda x: vec[0][0]*langrage_basis(x, 0)+vec[0][1]*langrage_basis(x, 1)+vec[0][2]*langrage_basis(x, 2)+vec[0][3]*langrage_basis(x, 3)
         interpoly_plot = lagrange_axes.plot(interpoly, color = BLUE)
-        interpoly_equ = MathTex("-x^3 + 6x^2 - 9x + 5").set_color(BLUE).shift(3*UP+1.8*LEFT)
+        interpoly_equ = MathTex("-x^3 + 6x^2 - 9x + 5").move_to(sum_of_lagr_for_interp_example.get_center())
         interpo_point = Dot(lagrange_axes.coords_to_point(0,5), color = RED)
         vecc_basis_2 = lambda x: vec[0][1]*langrage_basis(x, 1)
         vecc_basis_3 = lambda x: vec[0][2]*langrage_basis(x, 2)
@@ -652,12 +678,12 @@ class Lagrange(Scene):
         L_polys[2] = MathTex("L_{3}(x)").scale(0.7).move_to(a_vec[2].get_top() + 0.6*UP).set_color(colour_lagr)
         L_polys[3] = MathTex("L_{4}(x)").scale(0.7).move_to(a_vec[3].get_top() + 0.6*UP).set_color(colour_lagr)
 
-        self.unique_polys(lagrange_axes, vecc, points, plots, interpoly_plot, interpoly_equ, interpo_point, vecc_plots)
-        self.making_polys(lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies, colours_1)
+        self.unique_polys(lagrange_axes, vecc, points, plots, interpoly_plot, interpoly_equ, interpo_point, vecc_plots, lagr_equations_with_succinct, multiply_to_fit_succinct, sum_of_lagr_for_interp_example)
+        self.making_polys(lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies, colours_1, colours_2, lagr_succinct)
         self.return_to_vecs(a_vec, vecc2, A1_lagr, LIGHT, A_interp_succinct, A, L_polys, colour_lagr)
         self.remind_where_vec_came_from(a_vec, constraints_real, steps_group, equation, A_interp_succinct, L_polys, LIGHT, B_interp_succinct_group, C_interp_succinct_group, colour_special, colours_1)
 
-    def unique_polys(self, lagrange_axes, vecc, points, plots, interpoly_plot, interpoly_equ, interpo_point, vecc_plots):
+    def unique_polys(self, lagrange_axes, vecc, points, plots, interpoly_plot, interpoly_equ, interpo_point, vecc_plots, lagr_equations_with_succinct, multiply_to_fit_succinct, sum_of_lagr_for_interp_example):
         self.add(lagrange_axes)
         self.wait()
         self.play(FadeIn(vecc))
@@ -667,31 +693,31 @@ class Lagrange(Scene):
         self.wait()
 
         # show basis polys
-        self.play(FadeIn(plots[0]))
+        self.play(FadeIn(plots[0], lagr_equations_with_succinct[0]))
         self.wait()
-        self.play(FadeOut(plots[0]), FadeIn(plots[1]))
+        self.play(FadeTransform(plots[0], plots[1]), *[FadeTransform(lagr_equations_with_succinct[0][s], lagr_equations_with_succinct[1][s]) for s in range(2)])
         self.wait()
-        self.play(FadeTransform(plots[1], vecc_plots[0]))
+        self.play(FadeTransform(plots[1], vecc_plots[0]), *[FadeTransform(lagr_equations_with_succinct[1][s], multiply_to_fit_succinct[0][s]) for s in range(2)])
         self.wait()
-        self.play(FadeOut(vecc_plots[0]), FadeIn(plots[2]))
+        self.play(FadeTransform(vecc_plots[0], plots[2]), *[FadeTransform(multiply_to_fit_succinct[0][s], lagr_equations_with_succinct[2][s]) for s in range(2)])
         self.wait()
-        self.play(FadeTransform(plots[2], vecc_plots[1]))
+        self.play(FadeTransform(plots[2], vecc_plots[1]), *[FadeTransform(lagr_equations_with_succinct[2][s], multiply_to_fit_succinct[1][s]) for s in range(2)])
         self.wait()
-        self.play(FadeOut(vecc_plots[1]), FadeIn(plots[3]))
+        self.play(FadeTransform(vecc_plots[1], plots[3]), *[FadeTransform(multiply_to_fit_succinct[1][s], lagr_equations_with_succinct[3][s]) for s in range(2)])
         self.wait()
 
-        self.play(FadeIn(plots[0], vecc_plots[0], vecc_plots[1]))
+        self.play(FadeIn(plots[0], vecc_plots[0], vecc_plots[1], sum_of_lagr_for_interp_example), FadeOut(lagr_equations_with_succinct[3]))
         self.wait()
-        self.play(FadeOut(plots[0], plots[3], vecc_plots[0], vecc_plots[1]), FadeIn(interpoly_plot))
+        self.play(FadeOut(plots[0], plots[3], vecc_plots[0], vecc_plots[1]))
+        self.play(Create(interpoly_plot))
         self.wait()
+        self.play(*[Unwrite(sum_of_lagr_for_interp_example[s]) for s in range(4)])
         self.play(Write(interpoly_equ))
         self.wait()
-        self.play(FadeIn(interpo_point))
-        self.wait()
-        self.clear()
+        self.play(FadeOut(lagrange_axes, interpoly_equ, interpoly_plot, vecc), *[FadeOut(points[s]) for s in range(4)])
         self.wait()
 
-    def making_polys(self, lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies, colours_1):
+    def making_polys(self, lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies, colours_1, colours_2, lagr_succinct):
         self.play(FadeIn(constraints_real))
         self.wait()
         self.add(copies)
@@ -710,21 +736,19 @@ class Lagrange(Scene):
         self.play(*[FadeTransform(vecc2_copy[0][s], new_points[s]) for s in range(4)])
         self.wait()
 
-        # show bases again
-        self.play(FadeIn(plots[0]))
+        # show bases again alongside L_i(x) and what multiple is needed of each
+        lagr_4_times_five = MathTex("5*L_4(x)").set_color(GREEN).shift(4*RIGHT)
+        self.play(FadeIn(plots[0], lagr_succinct[0].move_to(lagr_4_times_five.get_center())))
         self.wait()
-        self.play(FadeOut(plots[0]), FadeIn(plots[1]))
+        self.play(FadeTransform(plots[0], plots[1]), FadeTransform(lagr_succinct[0], lagr_succinct[1].move_to(lagr_4_times_five.get_center())))
         self.wait()
-        self.play(FadeOut(plots[1]), FadeIn(plots[2]))
+        self.play(FadeTransform(plots[1], plots[2]), FadeTransform(lagr_succinct[1], lagr_succinct[2].move_to(lagr_4_times_five.get_center())))
         self.wait()
-        self.play(FadeOut(plots[2]), FadeIn(plots[3]))
+        self.play(FadeTransform(plots[2], plots[3]), FadeTransform(lagr_succinct[2], lagr_succinct[3].move_to(lagr_4_times_five.get_center())))
         self.wait()
-        basis_4 = MathTex("\\frac{1}{6}x^3 - x^2 + \\frac{11}{6}x - 1").shift(3.5*RIGHT).set_color(colours_1[3])
-        self.play(Write(basis_4))
+        self.play(FadeTransform(plots[3], first_a_vec), FadeTransform(lagr_succinct[3], lagr_4_times_five))
         self.wait()
-        self.play(FadeTransform(plots[3], first_a_vec))
-        self.wait()
-        self.play(FadeTransform(basis_4, A1_lagr))
+        self.play(FadeTransform(lagr_4_times_five, A1_lagr))
         self.wait()
         self.play(FadeOut(lagrange_axes, *[new_points[s] for s in range(4)], first_a_vec))
         self.wait()
@@ -741,9 +765,13 @@ class Lagrange(Scene):
 
 
         Ai_values_rectangles = [0,1,2,3,4,5] 
-        for s in range(5):
-            Ai_values_rectangles[s] = Rectangle(width = 4.5, height = 0.5, color =LIGHT).move_to(3.5*RIGHT + 2*UP + 0.8*(s+1)*DOWN)
-        self.play(*[FadeIn(Ai_values_rectangles[s]) for s in range(5)])
+        for s in range(6):
+            Ai_values_rectangles[s] = Rectangle(width = 4.5, height = 0.5, color =LIGHT).move_to(3.5*RIGHT + 2*UP + 0.8*(s)*DOWN)
+        self.play(Create(Ai_values_rectangles[0]))
+        self.wait()
+        self.play(ReplacementTransform(Ai_values_rectangles[0], A1_lagr))
+        self.wait()
+        self.play(*[FadeIn(Ai_values_rectangles[s+1]) for s in range(5)])
         self.wait()
 
         self.play(*[Write(L_polys[s]) for s in range(4)])
@@ -757,7 +785,7 @@ class Lagrange(Scene):
         interpolation_in_lagr_basis[3] = MathTex("1*L_{4}(x)").scale(0.7).move_to(A[4].get_center()).set_color(colour_lagr)
         interpolation_in_lagr_basis[4] = MathTex("0").scale(0.7).move_to(A[5].get_center()).set_color(colour_lagr)
 
-        self.play(*[FadeTransform(Ai_values_rectangles[s], interpolation_in_lagr_basis[s]) for s in range(5)])
+        self.play(*[FadeTransform(Ai_values_rectangles[s+1], interpolation_in_lagr_basis[s]) for s in range(5)])
         self.wait()
         
         # introduce the interpolated A equations in x basis
@@ -990,7 +1018,7 @@ class Checking_sol(Scene):
 
         # This equation should equal 0
         xrange = MathTex("\\forall x \in [1,4]").next_to(total_togeth_clone[6], RIGHT).shift(1.4*RIGHT)
-        self.play(FadeIn(xrange))
+        self.play(Write (xrange))
         self.wait()
 
         # Vector format no longer required
@@ -1094,13 +1122,3 @@ def circuit_pattern():
 
     result.add(circle,linetop1,linetop2,linebottom1,linetop1_label,linetop2_label,linebottom1_label,unvisibleline1,unvisibleline2)
     return result
-
-# class Circle1Pattern(Scene):
-#     def construct(self):
-
-#         circuit_sample=circuit_pattern()
-        
-#         circuit_sample2=circuit_pattern().shift(UP*2).shift(RIGHT*4)
-
-#         self.add(circuit_sample, circuit_sample2)
-#         self.wait()

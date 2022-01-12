@@ -265,12 +265,17 @@ class Computation(Scene):
         self.camera.background_color = BLACK
         LIGHT = "#00c0f9"
         DARK = "#154bf9"
+        colour_special = "#931CFF"
+        colour_special_darker = "#9C7900"
+        colours_1 = ["#FFCC17", "#FF5555", "#E561E5", "#FF7D54"]
+        colours_2 = ["#642AB5", "#285BFE", "#00C0F9", "#0BACA2"]
 
         # Introduce the equation we are computing, and the separate steps
-        equation = MathTex("x^{3} + x + 5 = 35", color=YELLOW)
+        equation = MathTex("x^{3} + x + 5 = 35", color=colour_special)
         steps = MathTex(r'{{\operatorname{int} &= x*x}} \\ {{\operatorname{int}_2 &= \operatorname{int}*x}} \\ {{\operatorname{int}_3 &= \operatorname{int}_2 + x}} \\ {{\operatorname{out} &= \operatorname{int}_3 + 5}}')
         ops = MathTex(r'y &= x \\ y &= x \operatorname{(op)} z')
-        vector_compact_1 = MathTex("(a_1, b_1, c_1)")
+        vector_compact_1_square = Matrix([["a_1", "b_1", "c_1"]],left_bracket="(", right_bracket=")")
+        vector_compact_1 = MathTex("(a_1, b_1, c_1)").shift(5.2*RIGHT + 2*UP)
         vector_compact_2 = MathTex("(a_2, b_2, c_2)")
         vector_compact_3 = MathTex("(a_3, b_3, c_3)")
         vector_compact_4 = MathTex("(a_4, b_4, c_4)").shift(5.2*RIGHT + 1.2*DOWN)
@@ -306,32 +311,32 @@ class Computation(Scene):
         rect8 = Rectangle(width = 2.5, height = 0.6, color  = LIGHT).shift(4*RIGHT + 1.2*DOWN)
         equals_clone = equals.copy().move_to(times.get_center())
         summ = MathTex(r'{{1*a_{11}}}{{+x*a_{12}}}{{+\operatorname{int}*a_{13} \\ +\operatorname{int}_2*a_{14}+\operatorname{int}_3*a_{15}\\ +\operatorname{out}*a_{16}}}').shift(RIGHT)
-        AAA = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(BLUE).move_to(AA.get_center())
-        BBB = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(BLUE).move_to(BB.get_center())
-        CCC = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(BLUE).move_to(CC.get_center())
-        AAA2 = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(GREEN).move_to(AA.get_center())
-        BBB2 = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(GREEN).move_to(BB.get_center())
-        CCC2 = Matrix([["0"], ["0"], ["0"], ["1"], ["0"], ["0"]]).set_color(GREEN).move_to(CC.get_center())
-        AAA3 = Matrix([["0"], ["1"], ["0"], ["2"], ["0"], ["0"]]).set_color(RED).move_to(AA.get_center())
-        BBB3 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(RED).move_to(BB.get_center())
-        CCC3 = Matrix([["0"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(RED).move_to(CC.get_center())
-        AAA4 = Matrix([["5"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(PINK).move_to(AA.get_center())
-        BBB4 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(PINK).move_to(BB.get_center())
-        CCC4 = Matrix([["0"], ["0"], ["0"], ["0"], ["0"], ["1"]]).set_color(PINK).move_to(CC.get_center())
-        fakeS = Matrix([["1"], ["1"], ["1"], ["1"], ["1"], ["6"]]).set_color(DARK).move_to(S.get_center())
-        fakeS2 = Matrix([["1"], ["1"], ["1"], ["1"], ["1"], ["6"]]).set_color(DARK).move_to(S2.get_center())
-        fakeS3 = Matrix([["1"], ["1"], ["1"], ["1"], ["1"], ["6"]]).set_color(DARK).move_to(S3.get_center())
+        AAA = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(AA.get_center())
+        BBB = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(BB.get_center())
+        CCC = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(CC.get_center())
+        AAA2 = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[1]).move_to(AA.get_center())
+        BBB2 = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[1]).move_to(BB.get_center())
+        CCC2 = Matrix([["0"], ["0"], ["0"], ["1"], ["0"], ["0"]]).set_color(colours_1[1]).move_to(CC.get_center())
+        AAA3 = Matrix([["0"], ["1"], ["0"], ["2"], ["0"], ["0"]]).set_color(colours_1[2]).move_to(AA.get_center())
+        BBB3 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[2]).move_to(BB.get_center())
+        CCC3 = Matrix([["0"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(colours_1[2]).move_to(CC.get_center())
+        AAA4 = Matrix([["5"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(colours_1[3]).move_to(AA.get_center())
+        BBB4 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[3]).move_to(BB.get_center())
+        CCC4 = Matrix([["0"], ["0"], ["0"], ["0"], ["0"], ["1"]]).set_color(colours_1[3]).move_to(CC.get_center())
+        fakeS = Matrix([["1"], ["1"], ["1"], ["1"], ["1"], ["6"]]).set_color(colour_special_darker).move_to(S.get_center())
+        fakeS2 = Matrix([["1"], ["1"], ["1"], ["1"], ["1"], ["6"]]).set_color(colour_special_darker).move_to(S2.get_center())
+        fakeS3 = Matrix([["1"], ["1"], ["1"], ["1"], ["1"], ["6"]]).set_color(colour_special_darker).move_to(S3.get_center())
         fake_sum = MathTex(r'{{(}}{{5}} {{+}}{{1}}{{)*(}}{{1}}{{)=}}{{6}}').shift(3.5*DOWN)
         fake_sum2 = MathTex(r'{{(}}{{1}} {{+}}{{2}}{{)*(}}{{1}}{{)}}{{=}}{{1}}').shift(2.9*DOWN)
         not_equals = MathTex("\\neq").move_to(fake_sum2[8].get_center()).set_color(RED)
-        SS = Matrix([["1"], ["3"], ["9"], ["27"], ["30"], ["35"]]).set_color(YELLOW).move_to(S.get_center())
-        SS2 = Matrix([["1"], ["3"], ["9"], ["27"], ["30"], ["35"]]).set_color(YELLOW).move_to(S2.get_center())
-        SS3 = Matrix([["1"], ["3"], ["9"], ["27"], ["30"], ["35"]]).set_color(YELLOW).move_to(S3.get_center())
+        SS = Matrix([["1"], ["3"], ["9"], ["27"], ["30"], ["35"]]).set_color(colour_special).move_to(S.get_center())
+        SS2 = Matrix([["1"], ["3"], ["9"], ["27"], ["30"], ["35"]]).set_color(colour_special).move_to(S2.get_center())
+        SS3 = Matrix([["1"], ["3"], ["9"], ["27"], ["30"], ["35"]]).set_color(colour_special).move_to(S3.get_center())
         
         
-        self.introduce_constraints(equation, steps)
+        self.introduce_constraints(equation, steps, colours_1)
         self.allowed_ops(ops, LIGHT, steps)
-        self.introduce_R1CS(vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4, vector_compact_i, vector_dots, vector_compact_n, A, B, C, vectors)
+        self.introduce_R1CS(vector_compact_1_square, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4, vector_compact_i, vector_dots, vector_compact_n, A, B, C, vectors)
         self.vector_size(items, LIGHT, vectors, vectorss, steps, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4)
         self.write_dot_prod(items, parts, rect, rect2, equals_clone, summ, vectorss)
         self.instantiating_values(AA, BB, CC, AAA, BBB, CCC, AAA2, BBB2, CCC2, AAA3, BBB3, CCC3, AAA4, BBB4, CCC4, steps)
@@ -339,7 +344,7 @@ class Computation(Scene):
         self.fake_sol_2(steps, AAA3, AAA4, BBB3, BBB4, CCC3, CCC4, rect2, rect6, rect7, rect8, fake_sum2, not_equals)
         self.actual_sol(fake_sum, fake_sum2, not_equals, fakeS, fakeS2, fakeS3, SS, SS2, SS3, AA, BB, CC, AAA3, BBB3, CCC3, parts, steps, AAA, BBB, CCC, AAA2, BBB2, CCC2, AAA4, BBB4, CCC4, equation, LIGHT)
 
-    def introduce_constraints(self, equation, steps):
+    def introduce_constraints(self, equation, steps, colours_1):
         self.play(Write(equation, run_time = 1))
         self.wait
         self.play(equation.animate.shift(3.5*UP))
@@ -354,10 +359,10 @@ class Computation(Scene):
         self.wait
         self.play(steps.animate.shift(5*LEFT), run_time=1)
         self.wait
-        self.play(steps[0].animate.set_color(BLUE),
-        steps[2].animate.set_color(GREEN),
-        steps[4].animate.set_color(RED),
-        steps[6].animate.set_color(PINK),
+        self.play(steps[0].animate.set_color(colours_1[0]),
+        steps[2].animate.set_color(colours_1[1]),
+        steps[4].animate.set_color(colours_1[2]),
+        steps[6].animate.set_color(colours_1[3]),
         )
         self.wait()
         
@@ -372,16 +377,17 @@ class Computation(Scene):
         self.play(FadeOut(ops))
         self.wait
 
-    def introduce_R1CS(self, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4, vector_compact_i, vector_dots, vector_compact_n, A, B, C, vectors):
+    def introduce_R1CS(self, vector_compact_1_square, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4, vector_compact_i, vector_dots, vector_compact_n, A, B, C, vectors):
         # Introduce an R1CS
 
-        self.play(FadeIn(vector_compact_1))
+        self.play(FadeIn(vector_compact_1_square))
         self.wait
-        self.play(FadeOut(vector_compact_1), FadeIn(vectors))
+        self.play(*[FadeTransform(vector_compact_1_square[0][s], vectors[s]) for s in range(3)], FadeOut(vector_compact_1_square[1], vector_compact_1_square[2]))
+        self.wait()
+        self.play(*[FadeTransform(vectors[s], vector_compact_1_square[0][s]) for s in range(3)], FadeIn(vector_compact_1_square[1], vector_compact_1_square[2]))
         self.wait
-        self.play(FadeOut(vectors), FadeIn(vector_compact_1))
-        self.wait
-        self.play(vector_compact_1.animate.shift(5.2*RIGHT + 2*UP))
+        self.play(FadeTransform(vector_compact_1_square, vector_compact_1))
+        self.wait()
         self.play(FadeIn(vector_compact_2))
         self.wait
         self.play(vector_compact_2.animate.shift(5.2*RIGHT + UP))
@@ -405,9 +411,11 @@ class Computation(Scene):
         self.wait
         
         vector_compact_1_clone = vector_compact_1.copy()
-        self.play(vector_compact_1_clone.animate.shift(5.2*LEFT + 1.2*DOWN))
-        self.wait
-        self.play(FadeOut(vector_compact_1_clone), FadeIn(vectors))
+        # self.play(vector_compact_1_clone.animate.shift(5.2*LEFT + 1.2*DOWN))
+        # self.wait
+        self.play(FadeTransform(vector_compact_1_clone, vector_compact_1_square))
+        self.wait()
+        self.play(*[FadeTransform(vector_compact_1_square[0][s], vectors[s]) for s in range(3)], FadeOut(vector_compact_1_square[1], vector_compact_1_square[2]))
         self.wait
         
     def vector_size(self, items, LIGHT, vectors, vectorss, steps, vector_compact_1, vector_compact_2, vector_compact_3, vector_compact_4):
@@ -496,9 +504,9 @@ class Computation(Scene):
         self.wait()
 
     def actual_sol(self, fake_sum, fake_sum2, not_equals, fakeS, fakeS2, fakeS3, SS, SS2, SS3, AA, BB, CC, AAA3, BBB3, CCC3, parts, steps, AAA, BBB, CCC, AAA2, BBB2, CCC2, AAA4, BBB4, CCC4, equation, LIGHT):
-        self.play(FadeTransform(fakeS, SS), FadeTransform(fakeS2, SS2), FadeTransform(fakeS3, SS3), FadeTransform(AAA3, AA), FadeTransform(BBB3, BB), FadeTransform(CCC3, CC), FadeOut(fake_sum, fake_sum2, not_equals))
+        self.play(FadeTransform(fakeS, SS), FadeTransform(fakeS2, SS2), FadeTransform(fakeS3, SS3), FadeTransform(AAA3, AA), FadeTransform(BBB3, BB), FadeTransform(CCC3, CC), FadeOut(fake_sum, fake_sum2, not_equals, steps[4]))
         self.wait()
-        self.play(SS.animate.shift(LEFT), FadeOut(SS2, SS3, parts[2], parts[5], AA, BB, CC, steps[4]))
+        self.play(SS.animate.shift(LEFT), FadeOut(SS2, SS3, parts[2], parts[5], AA, BB, CC))
         self.wait()
         constraints = Group(steps[0], steps[2], steps[4], steps[6]).arrange_in_grid(buff=1.5).move_to(2.7*RIGHT)
         self.play(FadeIn(constraints))
@@ -547,6 +555,11 @@ class Lagrange(Scene):
         self.camera.background_color = BLACK
         LIGHT = "#00c0f9"
         DARK = "#154bf9"
+        colour_special = "#931CFF"
+        colour_special_darker = "#9C7900"
+        colours_1 = ["#FFCC17", "#FF5555", "#E561E5", "#FF7D54"]
+        colours_2 = ["#642AB5", "#285BFE", "#00C0F9", "#0BACA2"]
+        colour_lagr = "#0F915B"
 
         lagrange_axes = Axes(x_range=[0,8],y_range=[0,6], y_length=5, tips=False, axis_config={"include_numbers": True}).shift(0.8*UP)
         vec = [[1, 3, 5, 1]]
@@ -557,33 +570,32 @@ class Lagrange(Scene):
         lagrange_bases3 = lambda x: langrage_basis(x, 2)
         lagrange_bases4 = lambda x: langrage_basis(x, 3)
         lagrangey = [lagrange_bases1, lagrange_bases2, lagrange_bases3, lagrange_bases4]
-        colors = [RED, ORANGE, YELLOW, GREEN]
-        plots = [*[lagrange_axes.plot(lagrangey[i], color = colors[i]) for i in range(4)]]
+        plots = [*[lagrange_axes.plot(lagrangey[i], color = colours_2[i]) for i in range(4)]]
         interpoly = lambda x: vec[0][0]*langrage_basis(x, 0)+vec[0][1]*langrage_basis(x, 1)+vec[0][2]*langrage_basis(x, 2)+vec[0][3]*langrage_basis(x, 3)
         interpoly_plot = lagrange_axes.plot(interpoly, color = BLUE)
         interpoly_equ = MathTex("-x^3 + 6x^2 - 9x + 5").set_color(BLUE).shift(3*UP+1.8*LEFT)
         interpo_point = Dot(lagrange_axes.coords_to_point(0,5), color = RED)
         vecc_basis_2 = lambda x: vec[0][1]*langrage_basis(x, 1)
         vecc_basis_3 = lambda x: vec[0][2]*langrage_basis(x, 2)
-        vecc_plots = [lagrange_axes.plot(vecc_basis_2, color = colors[1]), lagrange_axes.plot(vecc_basis_3, color = colors[2])]
+        vecc_plots = [lagrange_axes.plot(vecc_basis_2, color = colours_2[1]), lagrange_axes.plot(vecc_basis_3, color = colours_2[2])]
 
-        AAA = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(BLUE)
-        BBB = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(BLUE)
-        CCC = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(BLUE)
-        AAA2 = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(GREEN)
-        BBB2 = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(GREEN)
-        CCC2 = Matrix([["0"], ["0"], ["0"], ["1"], ["0"], ["0"]]).set_color(GREEN)
-        AAA3 = Matrix([["0"], ["1"], ["0"], ["2"], ["0"], ["0"]]).set_color(RED)
-        BBB3 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(RED)
-        CCC3 = Matrix([["0"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(RED)
-        AAA4 = Matrix([["5"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(PINK)
-        BBB4 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(PINK)
-        CCC4 = Matrix([["0"], ["0"], ["0"], ["0"], ["0"], ["1"]]).set_color(PINK)
+        AAA = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0])
+        BBB = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0])
+        CCC = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[0])
+        AAA2 = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[1])
+        BBB2 = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[1])
+        CCC2 = Matrix([["0"], ["0"], ["0"], ["1"], ["0"], ["0"]]).set_color(colours_1[1])
+        AAA3 = Matrix([["0"], ["1"], ["0"], ["2"], ["0"], ["0"]]).set_color(colours_1[2])
+        BBB3 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[2])
+        CCC3 = Matrix([["0"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(colours_1[2])
+        AAA4 = Matrix([["5"], ["0"], ["0"], ["0"], ["1"], ["0"]]).set_color(colours_1[3])
+        BBB4 = Matrix([["1"], ["0"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[3])
+        CCC4 = Matrix([["0"], ["0"], ["0"], ["0"], ["0"], ["1"]]).set_color(colours_1[3])
 
         vec2 = [[0, 0, 0, 5]]
-        vecc2 = Matrix(vec2).set_column_colors(BLUE, GREEN, RED, PINK).shift(3.5*DOWN + 2.3*LEFT)
+        vecc2 = Matrix(vec2).set_column_colors(colours_1[0], colours_1[1], colours_1[2], colours_1[3]).shift(3.5*DOWN + 2.3*LEFT)
         firs_a_vec_function = lambda x: vec2[0][3]*langrage_basis(x, 3)
-        first_a_vec = lagrange_axes.plot(firs_a_vec_function, color = colors[3])
+        first_a_vec = lagrange_axes.plot(firs_a_vec_function, color = colours_2[3])
         a_vec = Group(AAA.copy(), AAA2.copy(), AAA3.copy(), AAA4.copy()).arrange().move_to(3.5*RIGHT)
         A1_lagr = MathTex("\\frac{5}{6}x^3 - 5x^2 + \\frac{55}{6}x - 5").shift(3.5*RIGHT).set_color(GREEN)
 
@@ -595,12 +607,12 @@ class Lagrange(Scene):
         copies = Group(AAA.copy(), AAA2.copy(), AAA3.copy(), AAA4.copy())
 
         steps = [0,1,2,3]
-        steps[0] = MathTex("\operatorname{int} = x*x").set_color(BLUE).move_to(constraints_real[0].get_center())
-        steps[1] = MathTex("\operatorname{int}_2 = \operatorname{int}*x").set_color(GREEN).move_to(constraints_real[1].get_center())
-        steps[2] = MathTex("\operatorname{int}_3 = \operatorname{int}_2 + x").set_color(RED).move_to(constraints_real[2].get_center())
-        steps[3] = MathTex("\operatorname{out} = \operatorname{int}_3 + 5").set_color(PINK).move_to(constraints_real[3].get_center())
+        steps[0] = MathTex("\operatorname{int} = x*x").set_color(colours_1[0]).move_to(constraints_real[0].get_center())
+        steps[1] = MathTex("\operatorname{int}_2 = \operatorname{int}*x").set_color(colours_1[1]).move_to(constraints_real[1].get_center())
+        steps[2] = MathTex("\operatorname{int}_3 = \operatorname{int}_2 + x").set_color(colours_1[2]).move_to(constraints_real[2].get_center())
+        steps[3] = MathTex("\operatorname{out} = \operatorname{int}_3 + 5").set_color(colours_1[3]).move_to(constraints_real[3].get_center())
         steps_group = Group(steps[0], steps[1], steps[2], steps[3]).arrange(DOWN).move_to(3*RIGHT)
-        equation = MathTex("x^{3} + x + 5 = 35", color=YELLOW)
+        equation = MathTex("x^{3} + x + 5 = 35", color=colour_special)
 
         A2_lagr = MathTex("-\\frac{2}{3}x^3 + 5x^2 + -\\frac{34}{3}x + 8").scale(0.6)
         A3_lagr = MathTex("\\frac{1}{2}x^3 - 4x^2 + \\frac{19}{2}x - 6").scale(0.6)
@@ -608,7 +620,6 @@ class Lagrange(Scene):
         A5_lagr = MathTex("\\frac{1}{6}x^3 - x^2 + \\frac{11}{6}x - 1").scale(0.6)
         A6_lagr = MathTex("0x^3 + 0x^2 + 0x + 0").scale(0.6)
         A = [A1_lagr, A2_lagr, A3_lagr, A4_lagr, A5_lagr, A6_lagr]
-        # 6*LEFT+ 2*UP   2.5*LEFT + 2*UP
         for s in range(5):
             A[s+1].move_to(2.5*LEFT + 2*UP + 0.8*(s+1)*DOWN).set_color(GREEN)
         A_interp_succinct = [0,1,2,3,4,5]
@@ -636,15 +647,15 @@ class Lagrange(Scene):
         C_interp_succinct_group = Group(C_interp_succinct[0], C_interp_succinct[1], C_interp_succinct[2], C_interp_succinct[3], C_interp_succinct[4], C_interp_succinct[5]).scale(0.7).arrange(DOWN, buff=0.32).move_to(6.3*RIGHT)
 
         L_polys = [0,1,2,3]
-        L_polys[0] = MathTex("L_{1}(x)").scale(0.7).move_to(a_vec[0].get_top() + 0.6*UP).set_color(ORANGE)
-        L_polys[1] = MathTex("L_{2}(x)").scale(0.7).move_to(a_vec[1].get_top() + 0.6*UP).set_color(ORANGE)
-        L_polys[2] = MathTex("L_{3}(x)").scale(0.7).move_to(a_vec[2].get_top() + 0.6*UP).set_color(ORANGE)
-        L_polys[3] = MathTex("L_{4}(x)").scale(0.7).move_to(a_vec[3].get_top() + 0.6*UP).set_color(ORANGE)
+        L_polys[0] = MathTex("L_{1}(x)").scale(0.7).move_to(a_vec[0].get_top() + 0.6*UP).set_color(colour_lagr)
+        L_polys[1] = MathTex("L_{2}(x)").scale(0.7).move_to(a_vec[1].get_top() + 0.6*UP).set_color(colour_lagr)
+        L_polys[2] = MathTex("L_{3}(x)").scale(0.7).move_to(a_vec[2].get_top() + 0.6*UP).set_color(colour_lagr)
+        L_polys[3] = MathTex("L_{4}(x)").scale(0.7).move_to(a_vec[3].get_top() + 0.6*UP).set_color(colour_lagr)
 
         self.unique_polys(lagrange_axes, vecc, points, plots, interpoly_plot, interpoly_equ, interpo_point, vecc_plots)
-        self.making_polys(lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies)
-        self.return_to_vecs(a_vec, vecc2, A1_lagr, LIGHT, A_interp_succinct, A, L_polys)
-        self.remind_where_vec_came_from(a_vec, constraints_real, steps_group, equation, A_interp_succinct, L_polys, LIGHT, B_interp_succinct_group, C_interp_succinct_group)
+        self.making_polys(lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies, colours_1)
+        self.return_to_vecs(a_vec, vecc2, A1_lagr, LIGHT, A_interp_succinct, A, L_polys, colour_lagr)
+        self.remind_where_vec_came_from(a_vec, constraints_real, steps_group, equation, A_interp_succinct, L_polys, LIGHT, B_interp_succinct_group, C_interp_succinct_group, colour_special, colours_1)
 
     def unique_polys(self, lagrange_axes, vecc, points, plots, interpoly_plot, interpoly_equ, interpo_point, vecc_plots):
         self.add(lagrange_axes)
@@ -680,7 +691,7 @@ class Lagrange(Scene):
         self.clear()
         self.wait()
 
-    def making_polys(self, lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies):
+    def making_polys(self, lagrange_axes, vec2, vecc2, first_a_vec, plots, a_vec, A1_lagr, constraints_real, copies, colours_1):
         self.play(FadeIn(constraints_real))
         self.wait()
         self.add(copies)
@@ -695,8 +706,7 @@ class Lagrange(Scene):
         self.play(FadeIn(lagrange_axes))
         self.wait()
         vecc2_copy = vecc2.copy()
-        colors = [BLUE, GREEN, RED, PINK]
-        new_points = [Dot(lagrange_axes.coords_to_point(s+1,vec2[0][s]), color=colors[s]) for s in range(4)]
+        new_points = [Dot(lagrange_axes.coords_to_point(s+1,vec2[0][s]), color=colours_1[s]) for s in range(4)]
         self.play(*[FadeTransform(vecc2_copy[0][s], new_points[s]) for s in range(4)])
         self.wait()
 
@@ -709,7 +719,7 @@ class Lagrange(Scene):
         self.wait()
         self.play(FadeOut(plots[2]), FadeIn(plots[3]))
         self.wait()
-        basis_4 = MathTex("\\frac{1}{6}x^3 - x^2 + \\frac{11}{6}x - 1").shift(3.5*RIGHT).set_color(GREEN)
+        basis_4 = MathTex("\\frac{1}{6}x^3 - x^2 + \\frac{11}{6}x - 1").shift(3.5*RIGHT).set_color(colours_1[3])
         self.play(Write(basis_4))
         self.wait()
         self.play(FadeTransform(plots[3], first_a_vec))
@@ -721,7 +731,7 @@ class Lagrange(Scene):
         self.play(A1_lagr.animate.shift(6*LEFT+ 2*UP).scale(0.6))
         self.wait()
 
-    def return_to_vecs(self, a_vec, vecc2, A1_lagr, LIGHT, A_interp_succinct, A, L_polys):
+    def return_to_vecs(self, a_vec, vecc2, A1_lagr, LIGHT, A_interp_succinct, A, L_polys, colour_lagr):
         a_vec_top_copies = [0,1,2,3]
         for s in range(4):
             a_vec_top_copies[s] = a_vec[s][0][0].copy()
@@ -741,11 +751,11 @@ class Lagrange(Scene):
 
         # present the interpolations in Lagrange basis
         interpolation_in_lagr_basis = [0,1,2,3,4]
-        interpolation_in_lagr_basis[0] = MathTex("1*L_{1}(x)+1*L_{3}(x)").scale(0.7).move_to(A[1].get_center()).set_color(ORANGE)
-        interpolation_in_lagr_basis[1] = MathTex("1*L_{2}(x)").scale(0.7).move_to(A[2].get_center()).set_color(ORANGE)
-        interpolation_in_lagr_basis[2] = MathTex("2*L_{3}(x)").scale(0.7).move_to(A[3].get_center()).set_color(ORANGE)
-        interpolation_in_lagr_basis[3] = MathTex("1*L_{4}(x)").scale(0.7).move_to(A[4].get_center()).set_color(ORANGE)
-        interpolation_in_lagr_basis[4] = MathTex("0").scale(0.7).move_to(A[5].get_center()).set_color(ORANGE)
+        interpolation_in_lagr_basis[0] = MathTex("1*L_{1}(x)+1*L_{3}(x)").scale(0.7).move_to(A[1].get_center()).set_color(colour_lagr)
+        interpolation_in_lagr_basis[1] = MathTex("1*L_{2}(x)").scale(0.7).move_to(A[2].get_center()).set_color(colour_lagr)
+        interpolation_in_lagr_basis[2] = MathTex("2*L_{3}(x)").scale(0.7).move_to(A[3].get_center()).set_color(colour_lagr)
+        interpolation_in_lagr_basis[3] = MathTex("1*L_{4}(x)").scale(0.7).move_to(A[4].get_center()).set_color(colour_lagr)
+        interpolation_in_lagr_basis[4] = MathTex("0").scale(0.7).move_to(A[5].get_center()).set_color(colour_lagr)
 
         self.play(*[FadeTransform(Ai_values_rectangles[s], interpolation_in_lagr_basis[s]) for s in range(5)])
         self.wait()
@@ -765,26 +775,25 @@ class Lagrange(Scene):
         self.wait()
 
 
-    def remind_where_vec_came_from(self, a_vec, constraints_real, steps_group, equation, A_interp_succinct, L_polys, LIGHT, B_interp_succinct_group, C_interp_succinct_group):
+    def remind_where_vec_came_from(self, a_vec, constraints_real, steps_group, equation, A_interp_succinct, L_polys, LIGHT, B_interp_succinct_group, C_interp_succinct_group, colour_special, colours_1):
         constraints_real_first_copy = [0,1,2,3]
         for s in range(4):
             constraints_real_first_copy[s] = constraints_real[s][0].copy()
-        self.play(*[FadeTransform(a_vec[s], constraints_real_first_copy[s]) for s in range(4)], FadeIn(constraints_real))
-        # self.play(FadeIn(constraints_real))
+        self.play(*[FadeTransform(a_vec[s], constraints_real_first_copy[s]) for s in range(4)], FadeIn(constraints_real), *[FadeOut(A_interp_succinct[s]) for s in range(6)])
         self.play(*[FadeOut(constraints_real_first_copy[s]) for s in range(4)])
         self.wait()
 
         # link vector triples to constraints
         surrounder = [0,1,2,3]
-        surrounder[0] = SurroundingRectangle(constraints_real[0], color = BLUE)
-        surrounder[1] = SurroundingRectangle(constraints_real[1], color = GREEN)
-        surrounder[2] = SurroundingRectangle(constraints_real[2], color = RED)
-        surrounder[3] = SurroundingRectangle(constraints_real[3], color = PINK)
+        surrounder[0] = SurroundingRectangle(constraints_real[0], color = colours_1[0])
+        surrounder[1] = SurroundingRectangle(constraints_real[1], color = colours_1[1])
+        surrounder[2] = SurroundingRectangle(constraints_real[2], color = colours_1[2])
+        surrounder[3] = SurroundingRectangle(constraints_real[3], color = colours_1[3])
         self.play(*[FadeTransform(surrounder[s], steps_group[s]) for s in range(4)], *[FadeOut(constraints_real[s]) for s in range(4)])
         self.wait()
 
         # link to original equation
-        final_surrounder = SurroundingRectangle(steps_group, color = YELLOW)
+        final_surrounder = SurroundingRectangle(steps_group, color = colour_special)
         self.play(FadeTransform(final_surrounder, equation.move_to(steps_group.get_center() + 3*UP)))
         self.wait()
 
@@ -795,13 +804,16 @@ class Lagrange(Scene):
         self.play(*[FadeTransform(steps_group[s], surrounder[s]) for s in range(4)], *[FadeIn(constraints_real[s]) for s in range(4)])
         self.play(*[FadeOut(surrounder[s]) for s in range(4)])
         self.wait()
+        sol_vec = Matrix([[1], ["x"], ["\operatorname{int}"], ["\operatorname{int}_2"], ["\operatorname{int}_3"], ["\operatorname{out}"]]).set_color(colour_special).move_to(5*LEFT)
+        self.play(FadeIn(sol_vec))
+        self.wait()
+        self.play(FadeOut(sol_vec))
+        self.wait()
 
         a_vecs = Group(constraints_real[0][0].copy(), constraints_real[1][0].copy(), constraints_real[2][0].copy(), constraints_real[3][0].copy()).arrange(buff = 0.1)
         b_vecs = Group(constraints_real[0][1].copy(), constraints_real[1][1].copy(), constraints_real[2][1].copy(), constraints_real[3][1].copy()).arrange(buff = 0.1)
         c_vecs = Group(constraints_real[0][2].copy(), constraints_real[1][2].copy(), constraints_real[2][2].copy(), constraints_real[3][2].copy()).arrange(buff = 0.1)
         vec_groups = Group(a_vecs, b_vecs, c_vecs).arrange(buff = 1.3)
-        A_interp_succinct_group = Group(A_interp_succinct[0], A_interp_succinct[1], A_interp_succinct[2], A_interp_succinct[3], A_interp_succinct[4], A_interp_succinct[5])
-        self.play(A_interp_succinct_group.animate.scale(0.7).move_to(2.4*LEFT))
         self.play(*[FadeTransform(constraints_real[s][0], a_vecs[s]) for s in range(4)], *[FadeTransform(constraints_real[s][1], b_vecs[s]) for s in range(4)], *[FadeTransform(constraints_real[s][2], c_vecs[s]) for s in range(4)])
         self.wait()
 
@@ -822,6 +834,8 @@ class Lagrange(Scene):
         self.play(*[FadeIn(reccys[s]) for s in range(6)])
         self.wait()
 
+        
+        A_interp_succinct_group = Group(A_interp_succinct[0], A_interp_succinct[1], A_interp_succinct[2], A_interp_succinct[3], A_interp_succinct[4], A_interp_succinct[5]).scale(0.7).arrange(DOWN, buff=0.33).move_to(2.4*LEFT)
         self.play(*[FadeTransform(reccys[s], A_interp_succinct_group[s]) for s in range(6)])
         self.wait()
 
@@ -831,16 +845,10 @@ class Lagrange(Scene):
         self.play(*[Write(L_basis_group2[s]) for s in range(4)], *[Write(L_basis_group3[s]) for s in range(4)])
         self.wait()
 
-        # Rectangles around b_vec entries
-        self.play(*[FadeIn(reccys2[s]) for s in range(6)])
+        # Rectangles around b_vec and c_vec entries
+        self.play(*[FadeIn(reccys2[s]) for s in range(6)], *[FadeIn(reccys3[s]) for s in range(6)])
         self.wait()
-        self.play(*[ReplacementTransform(reccys2[s], B_interp_succinct_group[s]) for s in range(6)])
-        self.wait()
-
-        # Rectangles around c_vec entries
-        self.play(*[FadeIn(reccys3[s]) for s in range(6)])
-        self.wait()
-        self.play(*[ReplacementTransform(reccys3[s], C_interp_succinct_group[s]) for s in range(6)])
+        self.play(*[ReplacementTransform(reccys2[s], B_interp_succinct_group[s]) for s in range(6)], *[ReplacementTransform(reccys3[s], C_interp_succinct_group[s]) for s in range(6)])
         self.wait()
 
         # Fade out constraint vectors and Lagrange bases
@@ -848,40 +856,251 @@ class Lagrange(Scene):
         self.wait()
 
         # Make lagr interp into actual vectors rather than just grouping, and bring in sol vec again
-        A_lagr_vec = Matrix([["A_1(x)"], ["A_2(x)"], ["A_3(x)"], ["A_4(x)"], ["A_5(x)"], ["A_6(x)"]]).set_color(BLUE)
-        B_lagr_vec = Matrix([["B_1(x)"], ["B_2(x)"], ["B_3(x)"], ["B_4(x)"], ["B_5(x)"], ["B_6(x)"]]).set_color(BLUE)
-        C_lagr_vec = Matrix([["C_1(x)"], ["C_2(x)"], ["C_3(x)"], ["C_4(x)"], ["C_5(x)"], ["C_6(x)"]]).set_color(BLUE)
-        sol_vec = Matrix([[1], ["x"], ["\operatorname{int}"], ["\operatorname{int}_2"], ["\operatorname{int}_3"], ["\operatorname{out}"]]).set_color(YELLOW)
+        A_lagr_vec = Matrix([["A_1(x)"], ["A_2(x)"], ["A_3(x)"], ["A_4(x)"], ["A_5(x)"], ["A_6(x)"]])
+        B_lagr_vec = Matrix([["B_1(x)"], ["B_2(x)"], ["B_3(x)"], ["B_4(x)"], ["B_5(x)"], ["B_6(x)"]])
+        C_lagr_vec = Matrix([["C_1(x)"], ["C_2(x)"], ["C_3(x)"], ["C_4(x)"], ["C_5(x)"], ["C_6(x)"]])
         times = Tex("*")
         equals = Tex("=")
         minus = Tex("-")
         zero = Tex("0")
         combined_vectors = Group(sol_vec, A_lagr_vec, times, sol_vec.copy(), B_lagr_vec, equals, sol_vec.copy(), C_lagr_vec).arrange()
         combined_vectors_rearranged = Group(sol_vec.copy(), A_lagr_vec.copy(), times.copy(), sol_vec.copy(), B_lagr_vec.copy(), minus.copy(), sol_vec.copy(), C_lagr_vec.copy(), equals.copy(), zero).arrange()
-        self.play(*[FadeTransform(A_interp_succinct_group[s], A_lagr_vec[0][s]) for s in range(6)], FadeIn(A_lagr_vec[1], A_lagr_vec[2]))
-        self.play(*[FadeTransform(B_interp_succinct_group[s], B_lagr_vec[0][s]) for s in range(6)], FadeIn(B_lagr_vec[1], B_lagr_vec[2]))
-        self.play(*[FadeTransform(C_interp_succinct_group[s], C_lagr_vec[0][s]) for s in range(6)], FadeIn(C_lagr_vec[1], C_lagr_vec[2]))
+        self.play(*[FadeTransform(A_interp_succinct_group[s], A_lagr_vec[0][s]) for s in range(6)], *[FadeTransform(B_interp_succinct_group[s], B_lagr_vec[0][s]) for s in range(6)], *[FadeTransform(C_interp_succinct_group[s], C_lagr_vec[0][s]) for s in range(6)], FadeIn(A_lagr_vec[1], A_lagr_vec[2], B_lagr_vec[1], B_lagr_vec[2], C_lagr_vec[1], C_lagr_vec[2]))
         self.wait()
         self.play(FadeIn(combined_vectors[0], combined_vectors[2], combined_vectors[3], combined_vectors[5], combined_vectors[6]))
         self.wait()
         self.play(*[FadeTransform(combined_vectors[s], combined_vectors_rearranged[s]) for s in range(8)], FadeIn(combined_vectors_rearranged[8], combined_vectors_rearranged[9]))
         self.wait()
 
-        # evaluating the poly returns us to one of the constraints
-        A_lagr_vec_at_zero = Matrix([["A_1(0)"], ["A_2(0)"], ["A_3(0)"], ["A_4(0)"], ["A_5(0)"], ["A_6(0)"]]).set_color(BLUE).move_to(A_lagr_vec.get_center())
-        B_lagr_vec_at_zero = Matrix([["B_1(0)"], ["B_2(0)"], ["B_3(0)"], ["B_4(0)"], ["B_5(0)"], ["B_6(0)"]]).set_color(BLUE).move_to(B_lagr_vec.get_center())
-        C_lagr_vec_at_zero = Matrix([["C_1(0)"], ["C_2(0)"], ["C_3(0)"], ["C_4(0)"], ["C_5(0)"], ["C_6(0)"]]).set_color(BLUE).move_to(C_lagr_vec.get_center())
+        # evaluating the poly at 1 returns us to the first constraints
+        A_lagr_vec_at_zero = Matrix([["A_1(1)"], ["A_2(1)"], ["A_3(1)"], ["A_4(1)"], ["A_5(1)"], ["A_6(1)"]]).set_color(colours_1[0]).move_to(A_lagr_vec.get_center())
+        B_lagr_vec_at_zero = Matrix([["B_1(1)"], ["B_2(1)"], ["B_3(1)"], ["B_4(1)"], ["B_5(1)"], ["B_6(1)"]]).set_color(colours_1[0]).move_to(B_lagr_vec.get_center())
+        C_lagr_vec_at_zero = Matrix([["C_1(1)"], ["C_2(1)"], ["C_3(1)"], ["C_4(1)"], ["C_5(1)"], ["C_6(1)"]]).set_color(colours_1[0]).move_to(C_lagr_vec.get_center())
         grouped_at_zero = Group(sol_vec.copy(), A_lagr_vec_at_zero.copy(), times.copy(), sol_vec.copy(), B_lagr_vec_at_zero.copy(), minus.copy(), sol_vec.copy(), C_lagr_vec_at_zero.copy(), equals.copy(), zero.copy()).arrange()
-        A_lagr_vec_at_zero_value = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(BLUE).move_to(A_lagr_vec.get_center())
-        B_lagr_vec_at_zero_value = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(BLUE).move_to(B_lagr_vec.get_center())
-        C_lagr_vec_at_zero_value = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(BLUE).move_to(C_lagr_vec.get_center())
+        A_lagr_vec_at_zero_value = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(A_lagr_vec.get_center())
+        B_lagr_vec_at_zero_value = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(B_lagr_vec.get_center())
+        C_lagr_vec_at_zero_value = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[0]).move_to(C_lagr_vec.get_center())
         grouped_at_zero_value = Group(sol_vec.copy(), A_lagr_vec_at_zero_value.copy(), times.copy(), sol_vec.copy(), B_lagr_vec_at_zero_value.copy(), minus.copy(), sol_vec.copy(), C_lagr_vec_at_zero_value.copy(), equals.copy(), zero.copy()).arrange()
         self.play(*[FadeTransform(combined_vectors_rearranged[s], grouped_at_zero[s]) for s in range(10)])
         self.wait()
         self.play(*[FadeTransform(grouped_at_zero[s], grouped_at_zero_value[s]) for s in range(10)])
         self.wait()
-        constraint1 = MathTex("\\operatorname{int} = x*x").set_color(BLUE).move_to(3.5*DOWN)
+        constraint1 = MathTex("\\operatorname{int} = x*x").set_color(colours_1[0]).move_to(3.5*DOWN)
         self.play(FadeIn(constraint1))
         self.wait()
         self.play(*[FadeTransform(grouped_at_zero_value[s], combined_vectors_rearranged[s]) for s in range(10)], FadeOut(constraint1))
         self.wait()
+
+        # evaluating the poly at 2 returns us to the second constraints
+        A_lagr_vec_at_two = Matrix([["A_1(2)"], ["A_2(2)"], ["A_3(2)"], ["A_4(2)"], ["A_5(2)"], ["A_6(2)"]]).set_color(colours_1[1]).move_to(A_lagr_vec.get_center())
+        B_lagr_vec_at_two = Matrix([["B_1(2)"], ["B_2(2)"], ["B_3(2)"], ["B_4(2)"], ["B_5(2)"], ["B_6(2)"]]).set_color(colours_1[1]).move_to(B_lagr_vec.get_center())
+        C_lagr_vec_at_two = Matrix([["C_1(2)"], ["C_2(2)"], ["C_3(2)"], ["C_4(2)"], ["C_5(2)"], ["C_6(2)"]]).set_color(colours_1[1]).move_to(C_lagr_vec.get_center())
+        grouped_at_two = Group(sol_vec.copy(), A_lagr_vec_at_two.copy(), times.copy(), sol_vec.copy(), B_lagr_vec_at_two.copy(), minus.copy(), sol_vec.copy(), C_lagr_vec_at_two.copy(), equals.copy(), zero.copy()).arrange()
+        A_lagr_vec_at_two_value = Matrix([["0"], ["0"], ["1"], ["0"], ["0"], ["0"]]).set_color(colours_1[1]).move_to(A_lagr_vec.get_center())
+        B_lagr_vec_at_two_value = Matrix([["0"], ["1"], ["0"], ["0"], ["0"], ["0"]]).set_color(colours_1[1]).move_to(B_lagr_vec.get_center())
+        C_lagr_vec_at_two_value = Matrix([["0"], ["0"], ["0"], ["1"], ["0"], ["0"]]).set_color(colours_1[1]).move_to(C_lagr_vec.get_center())
+        grouped_at_two_value = Group(sol_vec.copy(), A_lagr_vec_at_two_value.copy(), times.copy(), sol_vec.copy(), B_lagr_vec_at_two_value.copy(), minus.copy(), sol_vec.copy(), C_lagr_vec_at_two_value.copy(), equals.copy(), zero.copy()).arrange()
+        self.play(*[FadeTransform(combined_vectors_rearranged[s], grouped_at_two[s]) for s in range(10)])
+        self.wait()
+        self.play(*[FadeTransform(grouped_at_two[s], grouped_at_two_value[s]) for s in range(10)])
+        self.wait()
+        constraint2 = MathTex("\\operatorname{int_2} = \\operatorname{int}*x").set_color(colours_1[1]).move_to(3.5*DOWN)
+        self.play(FadeIn(constraint2))
+        self.wait()
+        self.play(*[FadeTransform(grouped_at_two_value[s], combined_vectors_rearranged[s]) for s in range(10)], FadeOut(constraint2))
+        self.wait()
+
+class Checking_sol(Scene):
+    def construct(self):
+        self.camera.background_color = BLACK
+        LIGHT = "#00c0f9"
+        DARK = "#154bf9"
+        colour_special = "#931CFF"
+        colour_special_darker = "#9C7900"
+        colours_1 = ["#FFCC17", "#FF5555", "#E561E5", "#FF7D54"]
+        colours_2 = ["#642AB5", "#285BFE", "#00C0F9", "#0BACA2"]
+        colour_lagr = "#0F915B"
+
+        sol_vec = Matrix([[1], ["x"], ["\operatorname{int}"], ["\operatorname{int}_2"], ["\operatorname{int}_3"], ["\operatorname{out}"]]).set_color(colour_special).move_to(5*LEFT)
+        A_lagr_vec = Matrix([["A_1(x)"], ["A_2(x)"], ["A_3(x)"], ["A_4(x)"], ["A_5(x)"], ["A_6(x)"]])
+        B_lagr_vec = Matrix([["B_1(x)"], ["B_2(x)"], ["B_3(x)"], ["B_4(x)"], ["B_5(x)"], ["B_6(x)"]])
+        C_lagr_vec = Matrix([["C_1(x)"], ["C_2(x)"], ["C_3(x)"], ["C_4(x)"], ["C_5(x)"], ["C_6(x)"]])
+        times = Tex("*")
+        equals = Tex("=")
+        minus = Tex("-")
+        zero = Tex("0")
+        combined_vectors_rearranged = Group(sol_vec.copy(), A_lagr_vec.copy(), times.copy(), sol_vec.copy(), B_lagr_vec.copy(), minus.copy(), sol_vec.copy(), C_lagr_vec.copy(), equals.copy(), zero).arrange()
+
+        # Solution vector stuff
+        equals_copy = equals.copy().next_to(combined_vectors_rearranged[1], RIGHT)
+        sum_a = MathTex(r'{{1*A_1(x)}}{{+}}{{x}}{{*A_2(x)}}{{\\+\operatorname{int}*A_3(x)}}{{ + \operatorname{int}_2*A_4(x)\\ }}{{+ \operatorname{int}_3*A_5(x) }}{{+ \operatorname{out}*A_6(x)}}').next_to(equals_copy, RIGHT)
+        sum_a[2].set_color(colour_special)
+        equals_copy2 = equals_copy.copy().next_to(sum_a, RIGHT)
+        total_a = MathTex("A(x)").next_to(equals_copy2, RIGHT)
+        summing = Group(combined_vectors_rearranged[0], combined_vectors_rearranged[1], equals_copy, sum_a, equals_copy2, total_a)
+
+        # succinct colution vector
+        total_b = MathTex("B(x)")
+        total_c = MathTex("C(x)")
+        hhhh = MathTex("H")
+        vanishing_poly = MathTex("Z(x)")
+        total_togeth = Group(total_a.copy(), times.copy(), total_b, minus.copy(), total_c, equals.copy(), zero.copy()).arrange().move_to(UP)
+        total_togeth_clone = Group(total_a.copy(), times.copy(), total_b.copy(), minus.copy(), total_c.copy(), equals.copy(), zero.copy()).arrange().move_to(3.5*DOWN)
+
+        self.play(FadeIn(combined_vectors_rearranged))
+        self.wait()
+        self.play(*[FadeOut(combined_vectors_rearranged[s+2]) for s in range(8)])
+        self.wait()
+
+        # Introduce solution vec again, and remind people how to do dot product
+        self.wait()
+        reccys = [0,1,2,3,4,5]
+        for s in range(6):
+            reccys[s] = Rectangle(width = 3.3, height = 0.6, color = LIGHT).move_to(4.9*LEFT + 2*UP + s*0.8*DOWN)
+        self.play(*[FadeIn(reccys[s]) for s in range(6)], FadeIn(summing[2]))
+        self.wait()
+
+        self.play(FadeTransform(reccys[0], sum_a[0]))
+        self.wait()
+        self.play(FadeTransform(reccys[1], sum_a[3]), FadeIn(sum_a[1], sum_a[2]))
+        self.wait()
+        self.play(*[FadeTransform(reccys[s+2], sum_a[s+4]) for s in range(4)])
+        self.wait()
+        self.play(FadeIn(summing[4], summing[5]))
+        self.wait()
+
+        # Now move A(X) to the bottom and bring out rest of the sol vec
+        self.play(FadeTransform(summing[5], total_togeth_clone[0]), FadeOut(summing[2], summing[3], summing[4]))
+        self.wait()
+        self.play(*[FadeIn(combined_vectors_rearranged[s+2]) for s in range(8)])
+        self.wait()
+
+        # Now introduce B(x) and C(x)
+        b_group = Group(combined_vectors_rearranged[3], combined_vectors_rearranged[4])
+        c_group = Group(combined_vectors_rearranged[6], combined_vectors_rearranged[7])
+        b_rect = SurroundingRectangle(b_group, color = LIGHT)
+        c_rect = SurroundingRectangle(c_group, color = LIGHT)
+        self.play(FadeTransform(b_rect, total_togeth_clone[2]),
+        FadeTransform(c_rect, total_togeth_clone[4]),
+        FadeTransform(combined_vectors_rearranged[2].copy(), total_togeth_clone[1]),
+        FadeTransform(combined_vectors_rearranged[5].copy(), total_togeth_clone[3]),
+        FadeTransform(combined_vectors_rearranged[8].copy(), total_togeth_clone[5]),
+        FadeTransform(combined_vectors_rearranged[9].copy(), total_togeth_clone[6]))
+        self.wait()
+
+        # This equation should equal 0
+        xrange = MathTex("\\forall x \in [1,4]").next_to(total_togeth_clone[6], RIGHT).shift(1.4*RIGHT)
+        self.play(FadeIn(xrange))
+        self.wait()
+
+        # Vector format no longer required
+        self.play(*[FadeOut(combined_vectors_rearranged[s]) for s in range(10)])
+        self.wait()
+        self.play(*[FadeTransform(total_togeth_clone[s], total_togeth[s]) for s in range(7)], xrange.animate.shift(4.5*UP))
+        self.wait()
+
+        # This is equiv to a multiple of the vanishing poly
+        iff = MathTex("a \iff a")
+        # Bug prevents above Tex from just being \iff, so add stuff and make it invisible
+        iff[0][0].set_color(BLACK)
+        iff[0][3].set_color(BLACK)
+        equiv_to = Group(total_a.copy(), times.copy(), total_b.copy(), minus.copy(), total_c.copy(), equals.copy(), hhhh, times.copy(), vanishing_poly).arrange().move_to(DOWN) 
+        self.play(FadeIn(iff, equiv_to))
+        self.wait()
+
+        # Define the vanishing poly Z(x)
+        vanishing_poly_formula = MathTex("(x-1)(x-2)(x-3)(x-4)")
+        vanishing_poly_def = Group(vanishing_poly.copy(), equals.copy(), vanishing_poly_formula).arrange().move_to(2*DOWN).set_color("#18E48F")
+        self.play(FadeIn(vanishing_poly_def))
+        self.wait()
+
+        # Any poly that is zero on 1 to 4 must be divisble by ..
+        any_poly_that_is = Tex(r'Any polynomial that is zero on $x\in[1,4]$ must \\  be divisble by the vanishing polynomial $Z(x)$').move_to(3*DOWN)
+        self.play(Write(any_poly_that_is))
+        self.wait()
+        self.play(FadeOut(vanishing_poly_def, any_poly_that_is, iff, total_togeth, xrange))
+        self.wait()
+        self.play(equiv_to.animate.shift(2*UP))
+        self.wait()
+
+        # equiv to dividing by Z(x) is possible without remainder
+        equiv_to_div_by_z = MathTex("{{\\frac{A(x)*B(X)-C(x)}{Z(x)} = }}{{H}}").move_to(1.4*DOWN) 
+        self.play(FadeIn(equiv_to_div_by_z, iff))
+        self.wait()
+        self.play(Indicate(equiv_to_div_by_z[1]))
+        self.wait()
+
+
+
+
+
+
+
+
+
+
+
+class PlonkEqu(Scene):
+    def construct(self):
+        self.camera.background_color = BLACK
+
+        colour_plonk = "#9b49a6"
+        colours = ["#3ca6d6", "#dc8724", "#34d140"]
+
+        plonk_equ = MathTex("{{a(x)}}{{q_L(x)}}{{+}}{{b(x)}}{{q_R(x)}}{{+}}{{c(x)}}{{q_O(x)}}{{+}}{{a(x)}}{{b(x)}}{{q_M(x)}}{{+}}{{q_C(x)}}{{= 0}}").scale(0.8).shift(UP)
+        # a(x) colour
+        plonk_equ[0].set_color(colours[0])
+        plonk_equ[9].set_color(colours[0])
+        # b(x) colour
+        plonk_equ[3].set_color(colours[1])
+        plonk_equ[10].set_color(colours[1])
+        # c(x) colour
+        plonk_equ[6].set_color(colours[2])
+        # selector poly colour
+        plonk_equ[1].set_color(colour_plonk)
+        plonk_equ[4].set_color(colour_plonk)
+        plonk_equ[7].set_color(colour_plonk)
+        plonk_equ[11].set_color(colour_plonk)
+        plonk_equ[13].set_color(colour_plonk)
+
+        self.play(FadeIn(plonk_equ))
+        print(len(plonk_equ))
+        self.wait()
+        circuit = circuit_pattern().scale(0.7).shift(DOWN)
+        self.play(FadeIn(circuit))
+        # self.circuit_pattern()
+        self.wait()
+
+
+def circuit_pattern():
+    result = VGroup()
+    colour_plonk = "#9b49a6"
+    colours = ["#3ca6d6", "#dc8724", "#34d140"]
+
+    unvisibleline1=Line(color=BLACK).shift(UP)
+    unvisibleline2=Line(color=BLACK).shift(DOWN*1.5)
+
+    circle = Circle(color=colour_plonk).scale(0.5)
+
+    linetop1=Line(unvisibleline1.get_start(),circle, color = colours[0])
+
+    linetop2=Line(unvisibleline1.get_end(),circle, color = colours[1])
+
+    linebottom1=Line(circle,unvisibleline2.get_center(), color = colours[2])
+
+    linetop1_label=Tex("a").move_to(linetop1,UL).shift(UP*0.5).shift(LEFT*0.5).set_color(colours[0])
+    linetop2_label=Tex("b").move_to(linetop2,UR).shift(RIGHT*0.6).shift(UP*0.5).set_color(colours[1])
+    linebottom1_label=Tex("c").move_to(linebottom1,DR).shift(RIGHT*0.6).shift(DOWN*0.5).set_color(colours[2])
+
+    result.add(circle,linetop1,linetop2,linebottom1,linetop1_label,linetop2_label,linebottom1_label,unvisibleline1,unvisibleline2)
+    return result
+
+# class Circle1Pattern(Scene):
+#     def construct(self):
+
+#         circuit_sample=circuit_pattern()
+        
+#         circuit_sample2=circuit_pattern().shift(UP*2).shift(RIGHT*4)
+
+#         self.add(circuit_sample, circuit_sample2)
+#         self.wait()
